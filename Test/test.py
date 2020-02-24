@@ -1,22 +1,19 @@
-def plus(val1, val2):
-    return val1 + val2
+import os
+import sys
+import urllib.request
+client_id = "Y8_yjrH1q2nvAb6rVLn5"
+client_secret = "YOUR_CLIENT_SECRET"
+encText = urllib.parse.quote("dog")
+url = "https://openapi.naver.com/v1/search/blog?query=" + encText # json 결과
+# url = "https://openapi.naver.com/v1/search/blog.xml?query=" + encText # xml 결과
+request = urllib.request.Request(url)
+request.add_header("X-Naver-Client-Id",client_id)
+request.add_header("X-Naver-Client-Secret",client_secret)
+response = urllib.request.urlopen(request)
+rescode = response.getcode()
+if(rescode==200):
+    response_body = response.read()
+    print(response_body.decode('utf-8'))
+else:
+    print("Error Code:" + rescode)
 
-
-def minus(val1, val2):
-    return val1 - val2
-
-
-def multiple(val1, val2):
-    return val1 * val2
-
-
-def divide(val1, val2):
-    return val1 / val2
-
-print('return_plus:', plus(10, 20))
-print('return_minus:', minus(10, 20))
-print('return_multiple:', multiple(10, 20))
-print('return_divide:', divide(10, 20))
-
-result = divide(minus(10,20), multiple(50,10))
-print(result)
